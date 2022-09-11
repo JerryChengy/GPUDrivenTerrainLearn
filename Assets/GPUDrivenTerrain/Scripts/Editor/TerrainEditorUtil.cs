@@ -50,7 +50,7 @@ namespace GPUDrivenTerrainLearn
 
 
         public static void GenerateNormalMapFromHeightMap(Texture2D heightMap,System.Action<Texture2D> callback){
-            var rtdesc = new RenderTextureDescriptor(heightMap.width,heightMap.height,RenderTextureFormat.RG32);
+            var rtdesc = new RenderTextureDescriptor(heightMap.width,heightMap.height,RenderTextureFormat.RGHalf);
             rtdesc.enableRandomWrite = true;
             var rt = RenderTexture.GetTemporary(rtdesc);
             ComputeShader computeShader = AssetDatabase.LoadAssetAtPath<ComputeShader>("Assets/GPUDrivenTerrain/Shader/HeightToNormal.compute");
