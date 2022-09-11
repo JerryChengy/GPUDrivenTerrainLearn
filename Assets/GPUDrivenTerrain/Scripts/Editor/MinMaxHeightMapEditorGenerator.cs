@@ -27,7 +27,7 @@ namespace GPUDrivenTerrainLearn
         }
 
         private RenderTexture CreateMinMaxHeightTexture(int texSize){
-            RenderTextureDescriptor desc = new RenderTextureDescriptor(texSize,texSize,RenderTextureFormat.RG32,0,1);
+            RenderTextureDescriptor desc = new RenderTextureDescriptor(texSize,texSize,RenderTextureFormat.RGHalf,0,1);
             desc.enableRandomWrite = true;
             desc.autoGenerateMips = false;
             var rt = RenderTexture.GetTemporary(desc);
