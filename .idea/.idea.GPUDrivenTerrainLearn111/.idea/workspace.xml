@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="355ab0ce-5cc6-4690-81a7-cc4b6eee1c8f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/BuildVisiblePatchData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/BuildVisiblePatchData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TerrainScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GPUDrivenTerrainLearn111/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GPUDrivenTerrainLearn111/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,10 +65,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="20820">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="20820" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -91,7 +90,7 @@
       <workItem from="1663225807760" duration="614000" />
       <workItem from="1663463202232" duration="1533000" />
       <workItem from="1663568710814" duration="16135000" />
-      <workItem from="1663675640254" duration="2522000" />
+      <workItem from="1663675640254" duration="3410000" />
     </task>
     <servers />
   </component>
@@ -114,24 +113,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/Scripts/TerrainBuilder.cs</url>
-          <line>306</line>
-          <properties documentPath="D:\UnityProjects\GPUDrivenTerrainLearn111\Assets\GPUDrivenTerrain\Scripts\Scripts\TerrainBuilder.cs" initialLine="306" containingFunctionPresentation="method 'Dispatch'">
-            <startOffsets>
-              <option value="12986" />
-            </startOffsets>
-            <endOffsets>
-              <option value="13032" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
