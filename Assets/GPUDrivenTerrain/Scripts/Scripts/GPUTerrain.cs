@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace GPUDrivenTerrainLearn
 {
+    [ExecuteInEditMode]
     public class GPUTerrain : MonoBehaviour
     {
         public TerrainAsset terrainAsset;
@@ -112,7 +113,11 @@ namespace GPUDrivenTerrainLearn
         }
 
         void OnDestroy(){
-            _traverse.Dispose();
+            if (_traverse!=null)
+            {
+                _traverse.Dispose();
+                
+            }
         }
 
 
