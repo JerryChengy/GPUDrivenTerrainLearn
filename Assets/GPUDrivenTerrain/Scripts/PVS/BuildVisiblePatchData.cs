@@ -16,19 +16,26 @@ namespace PVS
     {
         public Terrain staticTerrain;
         public GameObject dynamicTerrain;
-
+        private static bool isBuilding = false;
         public void Start()
         {
         }
 
         public  void Build()
         {
+            if (isBuilding)
+            {
+                return;
+            }
+
+            isBuilding = true;
             PrepareForBuild();
             
         }
 
         public void Clear()
         {
+            isBuilding = false;
             staticTerrain.gameObject.SetActive(true);
             dynamicTerrain.SetActive(false);
             if (dynamicTerrain.GetComponent<GPUTerrain>())

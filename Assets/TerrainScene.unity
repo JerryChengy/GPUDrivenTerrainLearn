@@ -406,37 +406,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1372903166}
-  - component: {fileID: 1372903165}
   m_Layer: 0
   m_Name: DynamicTerrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1372903165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1372903164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28625da0dd0e34a879989cc16411dc10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  terrainAsset: {fileID: 11400000, guid: 72f6584782b5749ff9ab045d609bcbb9, type: 2}
-  isFrustumCullEnabled: 1
-  isHizOcclusionCullingEnabled: 1
-  hizDepthBias: 0.2
-  boundsHeightRedundance: 4
-  distanceEvaluation: 1.2
-  seamLess: 1
-  patchDebug: 0
-  nodeDebug: 0
-  mipDebug: 0
-  patchBoundsDebug: 0
+  m_IsActive: 0
 --- !u!4 &1372903166
 Transform:
   m_ObjectHideFlags: 0
@@ -701,7 +677,7 @@ GameObject:
   - component: {fileID: 1923340045}
   - component: {fileID: 1923340044}
   m_Layer: 0
-  m_Name: TerrainGroup_0
+  m_Name: TerrainGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

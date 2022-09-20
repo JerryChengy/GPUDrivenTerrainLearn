@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="355ab0ce-5cc6-4690-81a7-cc4b6eee1c8f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/Scripts/GPUTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/Scripts/GPUTerrain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Textures/HeightMap.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Textures/HeightMap.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/BuildVisiblePatchData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/BuildVisiblePatchData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TerrainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TerrainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +91,7 @@
       <workItem from="1663225807760" duration="614000" />
       <workItem from="1663463202232" duration="1533000" />
       <workItem from="1663568710814" duration="16135000" />
-      <workItem from="1663675640254" duration="2204000" />
+      <workItem from="1663675640254" duration="2522000" />
     </task>
     <servers />
   </component>
