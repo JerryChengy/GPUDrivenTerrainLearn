@@ -16,6 +16,8 @@ namespace PVS
     {
         public Terrain staticTerrain;
         public GameObject dynamicTerrain;
+        public Texture2D heightMap;
+        public TerrainAsset terrainAsset;
         private static bool isBuilding = false;
         public void Start()
         {
@@ -54,7 +56,7 @@ namespace PVS
             //设置相机到合适的参数，用来做GPU光栅化 Occlusion
             CameraSetting.Init(Camera.main);
             //将Unity原有地形隐藏
-            staticTerrain.gameObject.SetActive(false);
+            //staticTerrain.gameObject.SetActive(false);
             
             //使用GPUTerrain
             dynamicTerrain.SetActive(true);

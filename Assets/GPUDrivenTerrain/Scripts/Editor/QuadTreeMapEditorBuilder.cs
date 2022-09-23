@@ -43,7 +43,8 @@ namespace GPUDrivenTerrainLearn
                 }
                 var tex2D = TerrainEditorUtil.ConvertToTexture2D(rt,TextureFormat.R16);
                 var bytes = tex2D.EncodeToPNG();
-                var dir = TerrainEditorUtil.GetSelectedDir();
+               // var dir = TerrainEditorUtil.GetSelectedDir();
+                string dir = "Assets/GPUDrivenTerrain/Textures";
                 System.IO.File.WriteAllBytes($"{dir}/QuadTreeMap_" + mip + ".png",bytes);
                 if(mip > 0){
                     BuildQuadTreeMapMip(mip - 1,nodeIdOffset + mipTexSize * mipTexSize);

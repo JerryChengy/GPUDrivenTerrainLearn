@@ -1,10 +1,6 @@
 #ifndef TERRAIN_COMMON_INPUT
 #define TERRAIN_COMMON_INPUT
 
-//最大的LOD级别是5
-#define MAX_TERRAIN_LOD 5
-#define MAX_NODE_ID 34124
-
 //一个PatchMesh由16x16网格组成
 #define PATCH_MESH_GRID_COUNT 16
 

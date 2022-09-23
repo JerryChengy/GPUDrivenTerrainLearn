@@ -38,6 +38,7 @@ uniform float4 _NodeEvaluationC; //节点评价系数。x为距离系数
 //*******世界尺寸参数********//
 //世界大小
 uniform float3 _WorldSize;
+uniform int _MaxTerrainLod;
 
 //
 /**
@@ -145,13 +146,13 @@ void TraverseQuadTree (uint3 id : SV_DispatchThreadID)
 void BuildLodMap(uint3 id : SV_DispatchThreadID){
     uint2 sectorLoc = id.xy;
     [unroll]
-    for(uint lod = MAX_TERRAIN_LOD; lod >= 0; lod --){
+    for(uint lod = _MaxTerrainLod; lod >= 0; lod --){
         uint sectorCount = GetSectorCountPerNode(lod);
         uint2 nodeLoc = sectorLoc / sectorCount;
         uint nodeId = GetNodeId(nodeLoc,lod);
         NodeDescriptor desc = NodeDescriptors[nodeId];
         if(desc.branch == 0){
-            _LodMap[sectorLoc] = lod * 1.0 / MAX_TERRAIN_LOD;
+            _LodMap[sectorLoc] = lod * 1.0 / _MaxTerrainLod;
             return;
         }
     }
@@ -350,7 +351,7 @@ uint GetLod(uint2 sectorLoc){
     if(sectorLoc.x < 0 || sectorLoc.y < 0 || sectorLoc.x >=SECTOR_COUNT_WORLD || sectorLoc.y >= SECTOR_COUNT_WORLD){
         return 0;
     }
-    return round(_LodMap[sectorLoc].r * MAX_TERRAIN_LOD);
+    return round(_LodMap[sectorLoc].r * _MaxTerrainLod);
 }
 
 void SetLodTrans(inout RenderPatch patch,uint3 nodeLoc,uint2 patchOffset){

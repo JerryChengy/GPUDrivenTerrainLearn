@@ -484,13 +484,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1372903166}
+  - component: {fileID: 1372903167}
   m_Layer: 0
   m_Name: DynamicTerrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1372903166
 Transform:
   m_ObjectHideFlags: 0
@@ -506,6 +507,29 @@ Transform:
   m_Father: {fileID: 1923340046}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1372903167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372903164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28625da0dd0e34a879989cc16411dc10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainAsset: {fileID: 11400000, guid: 72f6584782b5749ff9ab045d609bcbb9, type: 2}
+  isFrustumCullEnabled: 0
+  isHizOcclusionCullingEnabled: 0
+  hizDepthBias: 0.2
+  boundsHeightRedundance: 4
+  distanceEvaluation: 1.2
+  seamLess: 1
+  patchDebug: 0
+  nodeDebug: 0
+  mipDebug: 0
+  patchBoundsDebug: 0
 --- !u!1 &1587077564
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,8 +567,8 @@ Camera:
   m_GameObject: {fileID: 1587077564}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -570,8 +594,8 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -697,6 +721,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   staticTerrain: {fileID: 960678049}
   dynamicTerrain: {fileID: 1372903164}
+  heightMap: {fileID: 2800000, guid: 37823e59dcdfc489cb98d1627032c3c0, type: 3}
+  terrainAsset: {fileID: 11400000, guid: 72f6584782b5749ff9ab045d609bcbb9, type: 2}
 --- !u!114 &1923340045
 MonoBehaviour:
   m_ObjectHideFlags: 0

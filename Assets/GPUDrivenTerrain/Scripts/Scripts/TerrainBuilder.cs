@@ -58,7 +58,7 @@ namespace GPUDrivenTerrainLearn
             _patchBoundsIndirectArgs = new ComputeBuffer(5,4,ComputeBufferType.IndirectArguments);
             _patchBoundsIndirectArgs.SetData(new uint[]{TerrainAsset.unitCubeMesh.GetIndexCount(0),0,0,0,0});
 
-            _maxLODNodeList = new ComputeBuffer(TerrainAsset.MAX_LOD_NODE_COUNT * TerrainAsset.MAX_LOD_NODE_COUNT,8,ComputeBufferType.Append);
+            _maxLODNodeList = new ComputeBuffer(_asset.MaxLodNodeCount * _asset.MaxLodNodeCount,8,ComputeBufferType.Append);
             this.InitMaxLODNodeListDatas();
 
             _nodeListA = new ComputeBuffer(_tempNodeBufferSize,8,ComputeBufferType.Append);
@@ -66,7 +66,7 @@ namespace GPUDrivenTerrainLearn
             _indirectArgsBuffer = new ComputeBuffer(3,4,ComputeBufferType.IndirectArguments);
             _indirectArgsBuffer.SetData(new uint[]{1,1,1});
             _finalNodeListBuffer = new ComputeBuffer(_maxNodeBufferSize,12,ComputeBufferType.Append);
-            _nodeDescriptors = new ComputeBuffer((int)(TerrainAsset.MAX_NODE_ID + 1),4);
+            _nodeDescriptors = new ComputeBuffer((int)(_asset.MaxNodeId + 1),4);
             
             _patchBoundsBuffer = new ComputeBuffer(_maxNodeBufferSize * 64,4*10,ComputeBufferType.Append);
 
@@ -86,7 +86,7 @@ namespace GPUDrivenTerrainLearn
         }
 
         private void InitMaxLODNodeListDatas(){
-            var maxLODNodeCount = TerrainAsset.MAX_LOD_NODE_COUNT;
+            var maxLODNodeCount = _asset.MaxLodNodeCount;
             uint2[] datas = new uint2[maxLODNodeCount * maxLODNodeCount];
             var index = 0;
             for(uint i = 0; i < maxLODNodeCount; i ++){
@@ -127,9 +127,10 @@ namespace GPUDrivenTerrainLearn
 
         private void InitWorldParams(){
             float wSize = _asset.worldSize.x;
-            int nodeCount = TerrainAsset.MAX_LOD_NODE_COUNT;
-            Vector4[] worldLODParams = new Vector4[TerrainAsset.MAX_LOD + 1];
-            for(var lod = TerrainAsset.MAX_LOD; lod >=0; lod --){
+            int nodeCount = _asset.MaxLodNodeCount;
+            
+            Vector4[] worldLODParams = new Vector4[_asset.MaxLod + 1];
+            for(var lod = _asset.MaxLod; lod >=0; lod --){
                 var nodeSize = wSize / nodeCount;
                 var patchExtent = nodeSize / 16;
                 var sectorCountPerNode = (int)Mathf.Pow(2,lod);
@@ -138,9 +139,9 @@ namespace GPUDrivenTerrainLearn
             }
             _computeShader.SetVectorArray(ShaderConstants.WorldLodParams,worldLODParams);
 
-            int[] nodeIDOffsetLOD = new int[ (TerrainAsset.MAX_LOD + 1) * 4];
+            int[] nodeIDOffsetLOD = new int[ (_asset.MaxLod + 1) * 4];
             int nodeIdOffset = 0;
-            for(int lod = TerrainAsset.MAX_LOD; lod >=0; lod --){
+            for(int lod = _asset.MaxLod; lod >=0; lod --){
                 nodeIDOffsetLOD[lod * 4] = nodeIdOffset;
                 nodeIdOffset += (int)(worldLODParams[lod].z * worldLODParams[lod].z);
             }
@@ -274,14 +275,15 @@ namespace GPUDrivenTerrainLearn
 
             _commandBuffer.SetComputeVectorParam(_computeShader,ShaderConstants.CameraPositionWS,camera.transform.position);
             _commandBuffer.SetComputeVectorParam(_computeShader,ShaderConstants.WorldSize,_asset.worldSize);
+            _commandBuffer.SetComputeIntParam(_computeShader, ShaderConstants.MaxTerrainLod, _asset.MaxLod);
 
             //四叉树分割计算得到初步的Patch列表
             _commandBuffer.CopyCounterValue(_maxLODNodeList,_indirectArgsBuffer,0);
             ComputeBuffer consumeNodeList = _nodeListA;
             ComputeBuffer appendNodeList = _nodeListB;
-            for(var lod = TerrainAsset.MAX_LOD; lod >=0; lod --){
+            for(var lod = _asset.MaxLod; lod >=0; lod --){
                 _commandBuffer.SetComputeIntParam(_computeShader,ShaderConstants.PassLOD,lod);
-                if(lod == TerrainAsset.MAX_LOD){
+                if(lod == _asset.MaxLod){
                     _commandBuffer.SetComputeBufferParam(_computeShader,_kernelOfTraverseQuadTree,ShaderConstants.ConsumeNodeList,_maxLODNodeList);
                 }else{
                     _commandBuffer.SetComputeBufferParam(_computeShader,_kernelOfTraverseQuadTree,ShaderConstants.ConsumeNodeList,consumeNodeList);
@@ -356,6 +358,8 @@ namespace GPUDrivenTerrainLearn
             public static readonly int NodeDescriptors = Shader.PropertyToID("NodeDescriptors");
 
             public static readonly int LodMap = Shader.PropertyToID("_LodMap");
+            
+            public static readonly int MaxTerrainLod = Shader.PropertyToID("_MaxTerrainLod");
         }
 
     }

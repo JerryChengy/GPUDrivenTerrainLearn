@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace GPUDrivenTerrainLearn{
@@ -7,16 +9,11 @@ namespace GPUDrivenTerrainLearn{
     [CreateAssetMenu(menuName = "GPUDrivenTerrainLearn/TerrainAsset")]
     public class TerrainAsset : ScriptableObject
     {
-        public const uint MAX_NODE_ID = 34124; //5x5+10x10+20x20+40x40+80x80+160x160 - 1
-        public const int MAX_LOD = 5;
-
-        /// <summary>
-        /// MAX LOD下，世界由5x5个区块组成
-        /// </summary>
-        public const int MAX_LOD_NODE_COUNT = 5;
+        //Sector的大小，也是LOD0的Node大小
+        public const int SECTOR_SIZE = 64;
 
         [SerializeField]
-        private Vector3 _worldSize = new Vector3(10240,2048,10240);
+        private Vector3 _worldSize = new Vector3(2048,1024,2048);
         
         [SerializeField]
         private Texture2D _albedoMap;
@@ -41,7 +38,48 @@ namespace GPUDrivenTerrainLearn{
 
         private Material _boundsDebugMaterial;
 
+        public int MaxLodNodeCount
+        {
+            get
+            {
+                int lod0Count = (int)_worldSize.x / SECTOR_SIZE;
+                int lodiCount = lod0Count;
+                for (int i = 0; i < MaxLod; i++)
+                {
+                    lodiCount /= 2;
+                }
 
+                return lodiCount;
+            }
+        }
+
+        //从0开始索引
+        public int MaxLod
+        {
+            get
+            {
+                int lod0Count = (int)_worldSize.x / SECTOR_SIZE;
+                int maxLod = (int)math.log2(lod0Count / 8) + 1;//从0开始索引
+                return maxLod;
+            }
+        }
+        public int MaxNodeId
+        {
+            get
+            {
+                int nodeCount = 0;
+                int lod0Count = (int)_worldSize.x / SECTOR_SIZE;
+                nodeCount += lod0Count * lod0Count;
+                int lodiCount = lod0Count;
+                for (int i = 0; i < MaxLod; i++)
+                {
+                    lodiCount *= 2;
+                    nodeCount += lodiCount * lodiCount;
+                }
+
+                return nodeCount - 1;
+            }
+        }
         public Vector3 worldSize{
             get{
                 return _worldSize;

@@ -123,9 +123,14 @@ namespace GPUDrivenTerrainLearn
 
         void Update()
         {
+            if (_traverse == null)
+            {
+                return;
+            }
             if(Input.GetKeyDown(KeyCode.Space)){
                 _traverse.Dispatch();
             }
+            
              _traverse.Dispatch();
             var terrainMaterial = this.EnsureTerrainMaterial();
             if(_isTerrainMaterialDirty){
