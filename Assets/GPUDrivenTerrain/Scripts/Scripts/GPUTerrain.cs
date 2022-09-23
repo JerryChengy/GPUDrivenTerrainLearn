@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PVS;
 using UnityEngine;
 
 namespace GPUDrivenTerrainLearn
@@ -141,6 +142,7 @@ namespace GPUDrivenTerrainLearn
             if(patchBoundsDebug){
                 Graphics.DrawMeshInstancedIndirect(TerrainAsset.unitCubeMesh,0,terrainAsset.boundsDebugMaterial,new Bounds(Vector3.zero,Vector3.one * 10240),_traverse.boundsIndirectArgs);
             }
+            PatchInfo.ReadFromPatchBuffer(_traverse.culledPatchBuffer);
         }
     }
 }

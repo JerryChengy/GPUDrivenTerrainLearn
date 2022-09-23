@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace PVS
@@ -17,7 +19,17 @@ namespace PVS
         //所有采样点
         private static List<Vector3> m_samplePointList = new List<Vector3>();
 
-        public static void InitSamplePointList(int mapSize, Terrain terrain)
+        private static int s_samplePointIndex = 0;
+
+        private static Camera s_sampleCamera;
+
+        public static void Init(int mapSize, Terrain terrain, Camera  camera)
+        {
+            InitSamplePointList(mapSize, terrain);
+            s_sampleCamera = camera;
+            s_sampleCamera.transform.rotation = quaternion.identity;
+        }
+        private static void InitSamplePointList(int mapSize, Terrain terrain)
         {
             m_samplePointList.Clear();
             
@@ -32,13 +44,32 @@ namespace PVS
                     float terrainHeight = terrain.SampleHeight(pos);
                     pos.y = terrainHeight;
                     m_samplePointList.Add(pos);
+                    for (int i = 0; i < s_sampleHeightNum; i++)
+                    {
+                        pos.y += s_sampleHeightStep;
+                        m_samplePointList.Add(pos);
+                    }
                 }
             }   
         }
-
-        public static void CameraSampleTraverse()
+        
+        public static void SampleOneByOne()
         {
-            
+            if (s_sampleCamera == null)
+            {
+                return;
+            }
+            s_sampleCamera.transform.position = m_samplePointList[s_samplePointIndex++%m_samplePointList.Count];
+        }
+        public static IEnumerator CameraSampleTraverse(Camera camera)
+        {
+            for (int i = 0; i < m_samplePointList.Count; i++)
+            {
+                camera.transform.position = m_samplePointList[0];
+                yield return new WaitForSeconds(5);
+            }
+
+            yield return null;
         }
     }
     

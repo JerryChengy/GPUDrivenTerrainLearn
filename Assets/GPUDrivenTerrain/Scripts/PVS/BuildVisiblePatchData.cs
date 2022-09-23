@@ -19,6 +19,7 @@ namespace PVS
         public Texture2D heightMap;
         public TerrainAsset terrainAsset;
         private static bool isBuilding = false;
+        public Camera sampleCamera;
         public void Start()
         {
         }
@@ -45,7 +46,7 @@ namespace PVS
                 DestroyImmediate(dynamicTerrain.GetComponent<GPUTerrain>());
             }
            
-            CameraSetting.Restore(Camera.main);
+            CameraSetting.Restore(sampleCamera);
         }
 
         /// <summary>
@@ -54,7 +55,7 @@ namespace PVS
         private void PrepareForBuild()
         {
             //设置相机到合适的参数，用来做GPU光栅化 Occlusion
-            CameraSetting.Init(Camera.main);
+            CameraSetting.Init(sampleCamera);
             //将Unity原有地形隐藏
             //staticTerrain.gameObject.SetActive(false);
             
@@ -80,8 +81,11 @@ namespace PVS
                                                 new Vector3(terrainAsset.worldSize.x / 2, 0,
                                                     terrainAsset.worldSize.z / 2);
             //生成相机采样点
-            CameraSample.InitSamplePointList((int)terrainAsset.worldSize.x, staticTerrain);
+            PatchInfo.Init(sampleCamera);
+            CameraSample.Init((int)terrainAsset.worldSize.x, staticTerrain,sampleCamera);
+          //  StartCoroutine(CameraSample.CameraSampleTraverse(sampleCamera));
         }
+       
     }
 }
 

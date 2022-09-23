@@ -38,6 +38,13 @@ namespace PVS
                    
             }
             GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("下一个采样点"))
+            {
+               CameraSample.SampleOneByOne();
+                   
+            }
+            GUILayout.EndHorizontal();
         }
     }
 }
