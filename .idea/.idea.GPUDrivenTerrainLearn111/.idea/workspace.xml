@@ -3,15 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="355ab0ce-5cc6-4690-81a7-cc4b6eee1c8f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GPUDrivenTerrainLearn111/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GPUDrivenTerrainLearn111/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/Editor/QuadTreeMapEditorBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/Editor/QuadTreeMapEditorBuilder.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/BuildVisiblePatchData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/BuildVisiblePatchData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/Editor/BuildVisiblePatchDataInspector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/Editor/BuildVisiblePatchDataInspector.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/Scripts/GPUTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/Scripts/GPUTerrain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/Scripts/TerrainAsset.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/Scripts/TerrainAsset.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/Scripts/TerrainBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/Scripts/TerrainBuilder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Shader/CommonInput.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Shader/CommonInput.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Shader/Terrain.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Shader/Terrain.shader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Shader/TerrainBuildCompute.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Shader/TerrainBuildCompute.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Terrain.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GPUDrivenTerrain/Terrain.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TerrainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TerrainScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
@@ -21,11 +16,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/07b6fe39dd764d459e12df05b599415216200/1e/a6be3474/Terrain.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5f5fce1adce946268459fff5fbf37d45157c00/ba/1ffdc6db/TextureFormat.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5f5fce1adce946268459fff5fbf37d45157c00/d6/b32bf658/Camera.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c2a97e0383e8404c9fc0ae19d58f57f146a800/4e/2f770435/Math.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c9ad6e5aeaf943f1822daf510afd1d8295400/a8/881a8a95/RenderPassEvent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/BuildVisiblePatchData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/CameraSample.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/CameraSetting.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/Editor/BuildVisiblePatchDataInspector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/PatchInfo.cs" root0="FORCE_HIGHLIGHTING" />
@@ -38,14 +35,17 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@12.1.7/ShaderLibrary/Color.hlsl" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@12.1.7/ShaderLibrary/Common.hlsl" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@12.1.7/ShaderLibrary/Packing.hlsl" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@12.1.7/ShaderLibrary/SpaceTransforms.hlsl" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@12.1.7/Runtime/2D/Clipper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@12.1.7/ShaderLibrary/Debug/DebugViewEnums.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@12.1.7/ShaderLibrary/Debug/DebuggingFullscreen.hlsl" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.terrain-tools@4.0.3/Editor/TerrainToolbox/Data/TerrainCreationSettings.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.terrain-tools@4.0.3/Editor/TerrainTools/CloneBrushTool.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.terrain-tools@4.0.3/Editor/TerrainTools/TerrainToolUtility.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.terrain-tools@4.0.3/Shaders/Visualization/Builtin/BLT_TerrainVisualizationCommon.cginc" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.terrain-tools@4.0.3/Shaders/Visualization/HDRP/HDRP_TerrainVisualizationTemplate.hlsl" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.6.4/Editor/Animation/CurveDataSource.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Graph/GraphGUI.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -86,10 +86,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="6616">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="20996">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="6616" />
+      <option name="pid" value="20996" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -112,7 +112,7 @@
       <workItem from="1663463202232" duration="1533000" />
       <workItem from="1663568710814" duration="16135000" />
       <workItem from="1663675640254" duration="6282000" />
-      <workItem from="1663895716689" duration="2090000" />
+      <workItem from="1663895716689" duration="10209000" />
     </task>
     <servers />
   </component>
@@ -140,30 +140,30 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/Editor/QuadTreeMapEditorBuilder.cs</url>
-          <line>13</line>
-          <properties documentPath="D:\UnityProjects\GPUDrivenTerrainLearn111\Assets\GPUDrivenTerrain\Scripts\Editor\QuadTreeMapEditorBuilder.cs" initialLine="13" containingFunctionPresentation="constructor 'QuadTreeMapEditorBuilder'">
+          <url>file://$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/BuildVisiblePatchData.cs</url>
+          <line>82</line>
+          <properties documentPath="D:\UnityProjects\GPUDrivenTerrainLearn111\Assets\GPUDrivenTerrain\Scripts\PVS\BuildVisiblePatchData.cs" initialLine="82" containingFunctionPresentation="method 'PrepareForBuild'">
             <startOffsets>
-              <option value="347" />
+              <option value="2706" />
             </startOffsets>
             <endOffsets>
-              <option value="372" />
+              <option value="2785" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="7" />
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/Editor/QuadTreeMapEditorBuilder.cs</url>
-          <line>28</line>
-          <properties documentPath="D:\UnityProjects\GPUDrivenTerrainLearn111\Assets\GPUDrivenTerrain\Scripts\Editor\QuadTreeMapEditorBuilder.cs" initialLine="28" containingFunctionPresentation="method 'BuildQuadTreeMapMip'">
+          <url>file://$PROJECT_DIR$/Assets/GPUDrivenTerrain/Scripts/PVS/BuildVisiblePatchData.cs</url>
+          <line>78</line>
+          <properties documentPath="D:\UnityProjects\GPUDrivenTerrainLearn111\Assets\GPUDrivenTerrain\Scripts\PVS\BuildVisiblePatchData.cs" initialLine="78" containingFunctionPresentation="method 'PrepareForBuild'">
             <startOffsets>
-              <option value="916" />
+              <option value="2425" />
             </startOffsets>
             <endOffsets>
-              <option value="1006" />
+              <option value="2671" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="8" />
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

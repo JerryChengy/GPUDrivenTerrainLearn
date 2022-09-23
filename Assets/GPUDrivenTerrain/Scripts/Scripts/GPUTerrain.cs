@@ -136,6 +136,7 @@ namespace GPUDrivenTerrainLearn
             if(_isTerrainMaterialDirty){
                 this.UpdateTerrainMaterialProeprties();
             }
+            terrainMaterial.SetVector("_TerrainWorldPos", gameObject.transform.position);
             Graphics.DrawMeshInstancedIndirect(TerrainAsset.patchMesh,0,terrainMaterial,new Bounds(Vector3.zero,Vector3.one * 10240),_traverse.patchIndirectArgs);
             if(patchBoundsDebug){
                 Graphics.DrawMeshInstancedIndirect(TerrainAsset.unitCubeMesh,0,terrainAsset.boundsDebugMaterial,new Bounds(Vector3.zero,Vector3.one * 10240),_traverse.boundsIndirectArgs);

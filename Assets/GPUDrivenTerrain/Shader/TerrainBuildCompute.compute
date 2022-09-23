@@ -334,7 +334,7 @@ RenderPatch CreatePatch(uint3 nodeLoc,uint2 patchOffset){
     float2 minMaxHeight = MinMaxHeightTexture.mips[lod][patchLoc].rg * _WorldSize.y + float2(-_BoundsHeightRedundance,_BoundsHeightRedundance);
     RenderPatch patch;
     patch.lod = lod;
-    patch.position = nodePositionWS + (patchOffset - (PATCH_COUNT_PER_NODE - 1) * 0.5) * patchMeterSize;
+    patch.position = nodePositionWS + (patchOffset - (PATCH_COUNT_PER_NODE - 1) * 0.5) * patchMeterSize/* + float3(_WorldSize.x/2, 0, _WorldSize.z/2)*/;
     patch.minMaxHeight = minMaxHeight;
     patch.lodTrans = 0;
     return patch;

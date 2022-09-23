@@ -48,6 +48,7 @@ Shader "GPUTerrainLearn/Terrain"
             sampler2D _NormalMap;
             uniform float3 _WorldSize;
             float4x4 _WorldToNormalMapMatrix;
+            uniform float3 _TerrainWorldPos;
 
             static half3 debugColorForMip[6] = {
                 half3(0,1,0),
@@ -175,7 +176,7 @@ uniform float4x4 _HizCameraMatrixVP;
                 float3 normal = SampleNormal(heightUV);
                 Light light = GetMainLight();
                 o.color = max(0.05,dot(light.direction,normal));
-
+                inVertex.xyz += _TerrainWorldPos;
                 float4 vertex = TransformObjectToHClip(inVertex.xyz);
                 o.vertex = vertex;
                 o.uv = uv * scale * 8;

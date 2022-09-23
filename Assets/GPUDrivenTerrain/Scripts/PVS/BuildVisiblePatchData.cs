@@ -75,9 +75,12 @@ namespace PVS
                 gpuTerrain.distanceEvaluation = 1.2f;
                 gpuTerrain.seamLess = true;
             }
-            
-            
 
+            dynamicTerrain.transform.position = staticTerrain.transform.position +
+                                                new Vector3(terrainAsset.worldSize.x / 2, 0,
+                                                    terrainAsset.worldSize.z / 2);
+            //生成相机采样点
+            CameraSample.InitSamplePointList((int)terrainAsset.worldSize.x, staticTerrain);
         }
     }
 }
