@@ -259,7 +259,7 @@ namespace GPUDrivenTerrainLearn
             _computeShader.SetVectorArray(ShaderConstants.CameraFrustumPlanes,_cameraFrustumPlanesV4);
         }
 
-        public void Dispatch(){
+        public void Dispatch(Vector3 terrainPosWS){
             var camera = Camera.main;
             
             //clear
@@ -273,6 +273,7 @@ namespace GPUDrivenTerrainLearn
                 _commandBuffer.SetComputeVectorParam(_computeShader,ShaderConstants.NodeEvaluationC,_nodeEvaluationC);
             }
 
+            _commandBuffer.SetComputeVectorParam(_computeShader,ShaderConstants.TerrainPositionWS, terrainPosWS);
             _commandBuffer.SetComputeVectorParam(_computeShader,ShaderConstants.CameraPositionWS,camera.transform.position);
             _commandBuffer.SetComputeVectorParam(_computeShader,ShaderConstants.WorldSize,_asset.worldSize);
             _commandBuffer.SetComputeIntParam(_computeShader, ShaderConstants.MaxTerrainLod, _asset.MaxLod);
@@ -341,10 +342,11 @@ namespace GPUDrivenTerrainLearn
         }
 
 
-        private class ShaderConstants{
+        public class ShaderConstants{
 
             public static readonly int WorldSize = Shader.PropertyToID("_WorldSize");
             public static readonly int CameraPositionWS = Shader.PropertyToID("_CameraPositionWS");
+            public static readonly int TerrainPositionWS = Shader.PropertyToID("_TerrainPositionWS");
             public static readonly int CameraFrustumPlanes = Shader.PropertyToID("_CameraFrustumPlanes");
             public static readonly int PassLOD = Shader.PropertyToID("PassLOD");
             public static readonly int AppendFinalNodeList = Shader.PropertyToID("AppendFinalNodeList");

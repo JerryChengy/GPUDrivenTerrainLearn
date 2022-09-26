@@ -46,11 +46,21 @@ namespace GPUDrivenTerrainLearn
 
         private bool _isTerrainMaterialDirty = false;
 
-
-        void Start(){
-            _traverse = new TerrainBuilder(terrainAsset);
-            terrainAsset.boundsDebugMaterial.SetBuffer("BoundsList",_traverse.patchBoundsBuffer);
-            this.ApplySettings();
+        public TerrainBuilder Traverse
+        {
+            get
+            {
+                return _traverse;
+            }
+            private set { }
+        }
+        public void Start(){
+            if (_traverse == null)
+            {
+                _traverse = new TerrainBuilder(terrainAsset);
+                terrainAsset.boundsDebugMaterial.SetBuffer("BoundsList",_traverse.patchBoundsBuffer);
+                this.ApplySettings();
+            }
         }
 
         private Material EnsureTerrainMaterial(){
@@ -122,27 +132,23 @@ namespace GPUDrivenTerrainLearn
         }
 
 
-        void Update()
+        public void Update()
         {
             if (_traverse == null)
             {
                 return;
             }
-            if(Input.GetKeyDown(KeyCode.Space)){
-                _traverse.Dispatch();
-            }
-            
-             _traverse.Dispatch();
+             _traverse.Dispatch(gameObject.transform.position);
             var terrainMaterial = this.EnsureTerrainMaterial();
             if(_isTerrainMaterialDirty){
                 this.UpdateTerrainMaterialProeprties();
             }
-            terrainMaterial.SetVector("_TerrainWorldPos", gameObject.transform.position);
+            terrainMaterial.SetVector(TerrainBuilder.ShaderConstants.TerrainPositionWS, gameObject.transform.position);
             Graphics.DrawMeshInstancedIndirect(TerrainAsset.patchMesh,0,terrainMaterial,new Bounds(Vector3.zero,Vector3.one * 10240),_traverse.patchIndirectArgs);
             if(patchBoundsDebug){
                 Graphics.DrawMeshInstancedIndirect(TerrainAsset.unitCubeMesh,0,terrainAsset.boundsDebugMaterial,new Bounds(Vector3.zero,Vector3.one * 10240),_traverse.boundsIndirectArgs);
             }
-            PatchInfo.ReadFromPatchBuffer(_traverse.culledPatchBuffer);
+            
         }
     }
 }

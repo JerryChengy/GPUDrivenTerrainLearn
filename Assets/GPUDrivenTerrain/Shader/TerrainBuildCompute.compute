@@ -29,6 +29,7 @@ RWStructuredBuffer<NodeDescriptor> NodeDescriptors;
 //表示TraverseQuadTree kernel执行的LOD级别
 uniform uint PassLOD;
 uniform float3 _CameraPositionWS;
+uniform float3 _TerrainPositionWS;
 
 //包围盒在高度方向留出冗余空间，应对MinMaxHeightTexture的精度不足
 uniform int _BoundsHeightRedundance;
@@ -103,7 +104,7 @@ float3 GetNodePositionWS(uint2 nodeLoc,uint lod){
 
 bool EvaluateNode(uint2 nodeLoc,uint lod){
     float3 positionWS = GetNodePositionWS(nodeLoc,lod);
-    float dis = distance(_CameraPositionWS,positionWS);
+    float dis = distance(_CameraPositionWS,positionWS+_TerrainPositionWS);
     float nodeSize = GetNodeSize(lod);
     float f = dis / (nodeSize * _NodeEvaluationC.x);
     if( f < 1){
@@ -145,7 +146,7 @@ void TraverseQuadTree (uint3 id : SV_DispatchThreadID)
 [numthreads(8,8,1)]
 void BuildLodMap(uint3 id : SV_DispatchThreadID){
     uint2 sectorLoc = id.xy;
-    [unroll]
+    [unroll(10)]
     for(uint lod = _MaxTerrainLod; lod >= 0; lod --){
         uint sectorCount = GetSectorCountPerNode(lod);
         uint2 nodeLoc = sectorLoc / sectorCount;

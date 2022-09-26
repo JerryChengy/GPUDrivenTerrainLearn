@@ -23,6 +23,16 @@ namespace PVS
 
         private static Camera s_sampleCamera;
 
+
+        public static float SampleHeightStep
+        {
+            get { return s_sampleHeightStep; }
+        }
+        public static int SampleTileSize
+        {
+            get { return s_sampleTileSize; }
+        }
+
         public static void Init(int mapSize, Terrain terrain, Camera  camera)
         {
             InitSamplePointList(mapSize, terrain);
@@ -33,7 +43,7 @@ namespace PVS
         {
             m_samplePointList.Clear();
             
-            int sampleCountXZ = (mapSize + s_sampleTileSize) / s_sampleTileSize;
+            int sampleCountXZ = mapSize / s_sampleTileSize;
             
             for (int x = 0; x < sampleCountXZ; x++)
             {
@@ -52,14 +62,31 @@ namespace PVS
                 }
             }   
         }
-        
-        public static void SampleOneByOne()
+
+        public static string ProgressInfo(string sampleInfo)
+        {
+            return sampleInfo + ": " + s_samplePointIndex + "/" + m_samplePointList.Count;
+        }
+        public static float Progress()
+        {
+            if (m_samplePointList.Count == 0)
+            {
+                return 0;
+            }
+            return (float)s_samplePointIndex / m_samplePointList.Count;
+        }
+        public static int SampleOneByOne()
         {
             if (s_sampleCamera == null)
             {
-                return;
+                return -1;
+            }
+            if (s_samplePointIndex == m_samplePointList.Count)
+            {
+                return -1;
             }
             s_sampleCamera.transform.position = m_samplePointList[s_samplePointIndex++%m_samplePointList.Count];
+            return s_samplePointIndex - 1;
         }
         public static IEnumerator CameraSampleTraverse(Camera camera)
         {

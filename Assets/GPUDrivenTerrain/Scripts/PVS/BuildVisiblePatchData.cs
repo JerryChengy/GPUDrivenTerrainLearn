@@ -20,8 +20,11 @@ namespace PVS
         public TerrainAsset terrainAsset;
         private static bool isBuilding = false;
         public Camera sampleCamera;
+        [NonSerialized]
+        public PatchInfo patchInfo;
         public void Start()
         {
+            
         }
 
         public  void Build()
@@ -30,10 +33,21 @@ namespace PVS
             {
                 return;
             }
-
             isBuilding = true;
-            PrepareForBuild();
             
+            PrepareForBuild();
+            /*var gT  =  dynamicTerrain.GetComponent<GPUTerrain>();
+            gT.Start();
+            int sampleIndex = 0;
+            while (sampleIndex != -1)
+            {
+                sampleIndex = CameraSample.SampleOneByOne();
+               // gT.Update();
+                patchInfo.ReadFromPatchBuffer(gT.Traverse.culledPatchBuffer);
+                EditorUtility.DisplayProgressBar("Camera sample patch", CameraSample.ProgressInfo("sampling "), CameraSample.Progress());
+            }
+            EditorUtility.ClearProgressBar();
+            patchInfo.GenPatchList();*/
         }
 
         public void Clear()
@@ -81,9 +95,10 @@ namespace PVS
                                                 new Vector3(terrainAsset.worldSize.x / 2, 0,
                                                     terrainAsset.worldSize.z / 2);
             //生成相机采样点
-            PatchInfo.Init(sampleCamera);
+            patchInfo = new PatchInfo();
+            patchInfo.Init(sampleCamera, (int)terrainAsset.worldSize.x, staticTerrain);
             CameraSample.Init((int)terrainAsset.worldSize.x, staticTerrain,sampleCamera);
-          //  StartCoroutine(CameraSample.CameraSampleTraverse(sampleCamera));
+            
         }
        
     }
