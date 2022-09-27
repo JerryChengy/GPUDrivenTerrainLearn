@@ -18,17 +18,16 @@ namespace PVS
         public GameObject dynamicTerrain;
         public Texture2D heightMap;
         public TerrainAsset terrainAsset;
-        private static bool isBuilding = false;
         public Camera sampleCamera;
         [NonSerialized]
-        public PatchInfo patchInfo;
-        public void Start()
-        {
-            
-        }
+        public BakePatch bakePatch;
+        
+        private static bool isBuilding = false;
+
 
         public  void Build()
         {
+#if UNITY_EDITOR
             if (isBuilding)
             {
                 return;
@@ -36,22 +35,25 @@ namespace PVS
             isBuilding = true;
             
             PrepareForBuild();
-            /*var gT  =  dynamicTerrain.GetComponent<GPUTerrain>();
+            var gT  =  dynamicTerrain.GetComponent<GPUTerrain>();
             gT.Start();
             int sampleIndex = 0;
             while (sampleIndex != -1)
             {
                 sampleIndex = CameraSample.SampleOneByOne();
-               // gT.Update();
-                patchInfo.ReadFromPatchBuffer(gT.Traverse.culledPatchBuffer);
+                gT.Update();
+                bakePatch.ReadFromPatchBuffer(gT.Traverse.culledPatchBuffer);
                 EditorUtility.DisplayProgressBar("Camera sample patch", CameraSample.ProgressInfo("sampling "), CameraSample.Progress());
             }
             EditorUtility.ClearProgressBar();
-            patchInfo.GenPatchList();*/
+            bakePatch.GenPatchList();
+#endif
+           
         }
 
         public void Clear()
         {
+#if UNITY_EDITOR
             isBuilding = false;
             staticTerrain.gameObject.SetActive(true);
             dynamicTerrain.SetActive(false);
@@ -61,6 +63,7 @@ namespace PVS
             }
            
             CameraSetting.Restore(sampleCamera);
+#endif
         }
 
         /// <summary>
@@ -68,6 +71,7 @@ namespace PVS
         /// </summary>
         private void PrepareForBuild()
         {
+#if UNITY_EDITOR
             //设置相机到合适的参数，用来做GPU光栅化 Occlusion
             CameraSetting.Init(sampleCamera);
             //将Unity原有地形隐藏
@@ -95,10 +99,10 @@ namespace PVS
                                                 new Vector3(terrainAsset.worldSize.x / 2, 0,
                                                     terrainAsset.worldSize.z / 2);
             //生成相机采样点
-            patchInfo = new PatchInfo();
-            patchInfo.Init(sampleCamera, (int)terrainAsset.worldSize.x, staticTerrain);
+            bakePatch = new BakePatch();
+            bakePatch.Init(sampleCamera, staticTerrain);
             CameraSample.Init((int)terrainAsset.worldSize.x, staticTerrain,sampleCamera);
-            
+#endif
         }
        
     }

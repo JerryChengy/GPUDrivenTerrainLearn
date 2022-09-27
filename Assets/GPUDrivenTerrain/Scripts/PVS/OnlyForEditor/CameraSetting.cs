@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace PVS
 {
-    public class CameraSetting
+    //其实这里的逻辑在运行时也可能会用到，暂时只为PVS Editor服务
+    public static class CameraSetting
     {
         public  struct CameraSetParam
         {

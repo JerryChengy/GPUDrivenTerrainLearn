@@ -62,20 +62,39 @@ public static class FileUtils
         v = BitConverter.ToSingle(sBuff, 0);
         return v;
     }
-
+    public static Vector3Int ReadVector3Byte(Stream stream)
+    {
+        Vector3Int v = Vector3Int.zero;
+        byte[] sBuff = new byte[sizeof(byte)];
+        stream.Read(sBuff, 0, sizeof(byte));
+        v.x = sBuff[0];
+        stream.Read(sBuff, 0, sizeof(byte));
+        v.y = sBuff[0];
+        stream.Read(sBuff, 0, sizeof(byte));
+        v.z = sBuff[0];
+        return v;
+    }
     public static void WriteVector3Byte(Stream stream, Vector3Int v)
     {
-        if (v.x != 0 || v.y != 0 || v.z != 0)
-        {
-            int iii = 0;
-            ++iii;
-        }
         byte[] sBuff = BitConverter.GetBytes(v.x);
         stream.Write(sBuff, 0, 1);
         sBuff = BitConverter.GetBytes(v.y);
         stream.Write(sBuff, 0, 1);
         sBuff = BitConverter.GetBytes(v.z);
         stream.Write(sBuff, 0, 1);
+    }
+
+    public static Vector3Int ReadVector3Int(Stream stream)
+    {
+        Vector3Int v = Vector3Int.zero;
+        byte[] sBuff = new byte[sizeof(int)];
+        stream.Read(sBuff, 0, sizeof(float));
+        v.x = BitConverter.ToInt32(sBuff, 0);
+        stream.Read(sBuff, 0, sizeof(float));
+        v.y = BitConverter.ToInt32(sBuff, 0);
+        stream.Read(sBuff, 0, sizeof(float));
+        v.z = BitConverter.ToInt32(sBuff, 0);
+        return v;
     }
     public static void WriteVector3Int(Stream stream, Vector3Int v)
     {
@@ -106,6 +125,26 @@ public static class FileUtils
         stream.Read(sBuff, 0, sizeof(float));
         v.z = BitConverter.ToSingle(sBuff, 0);
         return v;
+    }
+    public static Vector2Int ReadShort2(Stream stream)
+    {
+        short x = 0;
+        byte[] sBuff = new byte[sizeof(short)];
+        stream.Read(sBuff, 0, sizeof(short));
+        x = BitConverter.ToInt16(sBuff, 0);
+        short y = 0;
+        stream.Read(sBuff, 0, sizeof(short));
+        y = BitConverter.ToInt16(sBuff, 0);
+        return new Vector2Int(x, y);
+    }
+    public static void WriteShort2(Stream stream, Vector2 v)
+    {
+        short x = (short)Mathf.Floor(v.x);
+        byte[] sBuff = BitConverter.GetBytes(x);
+        stream.Write(sBuff, 0, sBuff.Length);
+        short y = (short)Mathf.Floor(v.y);
+        sBuff = BitConverter.GetBytes(y);
+        stream.Write(sBuff, 0, sBuff.Length);
     }
     public static void WriteVector2(Stream stream, Vector2 v)
     {

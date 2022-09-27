@@ -1,4 +1,5 @@
 using System.Collections;
+using PVS;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Unity.Mathematics;
@@ -257,6 +258,20 @@ namespace GPUDrivenTerrainLearn
                 _cameraFrustumPlanesV4[i] = v4;
             }
             _computeShader.SetVectorArray(ShaderConstants.CameraFrustumPlanes,_cameraFrustumPlanesV4);
+        }
+
+        public void CopyPatchListToIndirectArgs(PatchAsset patchAsset)
+        {
+            //clear
+            _commandBuffer.Clear();
+            this.ClearBufferCounter();
+            var data = new SinglePatch[patchAsset.allPosPatchList.Count];
+            
+            
+            _culledPatchBuffer.SetData(data);
+            _commandBuffer.CopyCounterValue(_culledPatchBuffer,_patchIndirectArgs,4);
+           
+            Graphics.ExecuteCommandBuffer(_commandBuffer);
         }
 
         public void Dispatch(Vector3 terrainPosWS){

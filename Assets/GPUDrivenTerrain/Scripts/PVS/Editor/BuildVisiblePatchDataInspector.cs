@@ -18,10 +18,21 @@ namespace PVS
             m_buildVisiblePatchData = target as BuildVisiblePatchData;
         }
 
+        private PatchAsset DeserializePatchInfo(string filePath)
+        {
+            Debug.Log("DeserializePatchInfo begin");
+            byte[] data = File.ReadAllBytes(filePath);
+            MemoryStream stream = new MemoryStream(data);
+            PatchAsset patchAsset = new PatchAsset();
+            patchAsset.Serialize(stream, false);
+            patchAsset.GenPatchDict();
+            Debug.Log("DeserializePatchInfo end");
+            return patchAsset;
+        }
         private void SerializePatchInfo(PatchAsset patchAsset, string savePath)
         {
             MemoryStream stream = new MemoryStream();
-            patchAsset.Serialize(stream);
+            patchAsset.Serialize(stream, true);
             if (stream.Length > 0)
             {
                 File.WriteAllBytes(savePath, stream.ToArray());
@@ -41,9 +52,10 @@ namespace PVS
                 {
                     AssetDatabase.CreateFolder(parentDir, patchDir);
                 }
-                SerializePatchInfo(m_buildVisiblePatchData.patchInfo.patchAsset, Path.Combine(wholeDir, "Patch.bytes"));
-                // AssetDatabase.CreateAsset(m_buildVisiblePatchData.patchInfo.patchAsset, Path.Combine(wholeDir, "Patch.asset"));
-                // AssetDatabase.Refresh();
+                SerializePatchInfo(m_buildVisiblePatchData.bakePatch.patchAsset, Path.Combine(wholeDir, "Patch.bytes"));
+                
+                //Test Deserialize
+                
             }
             if (GUILayout.Button("重置")) {
                 m_buildVisiblePatchData.Clear();
@@ -64,6 +76,13 @@ namespace PVS
             {
                CameraSample.SampleOneByOne();
                    
+            }
+            GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("读取Patch文件"))
+            {
+                PatchAsset patchAsset = DeserializePatchInfo("Assets/GPUDrivenTerrain/Patch/Patch.bytes");
+
             }
             GUILayout.EndHorizontal();
             
