@@ -25,20 +25,9 @@ namespace PVS
             Vector3Int logicPos = PatchUtility.WorldToLogicPos(m_terrain, worldPos, false, m_patchAsset.mapMinMaxPos);
             if (!m_patchAsset.allPosPatchDict.ContainsKey(logicPos))
             {
-                //临界值的处理
-                
                 return null;
             }
             var allPatch = m_patchAsset.allPosPatchDict[logicPos];
-            //test
-            /*List<SinglePatch> smallPatch = new List<SinglePatch>();
-            for (int i = 0; i < 10; i++)
-            {
-                smallPatch.Add(allPatch[i]);
-            }
-           
-            return smallPatch;*/
-            //test
             return allPatch;
         }
         

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -189,6 +190,73 @@ namespace PVS
         //优化前序列化结构
         private List<SinglePatchWrap> allPosPatchList = new List<SinglePatchWrap>();
 
+        private string DebugGenLodPatchDict(Vector3Int debugPos, int debugLod)
+        {
+            allPosPatchDict.Clear();
+            foreach (var perLogicPosPatchs in allPosPatchListByLod)
+            {
+                if (perLogicPosPatchs.logicPos != debugPos)
+                {
+                    continue;
+                }
+                if (!allPosPatchDict.ContainsKey(perLogicPosPatchs.logicPos))
+                {
+                    List<SinglePatch> patchList = new List<SinglePatch>();
+                    for (int i = 0; i < perLogicPosPatchs.allLodPatchs.Length; i++)
+                    {
+                        PerLodPatch perLodPatch = perLogicPosPatchs.allLodPatchs[i];
+                        int lod = i;
+                        if (lod != debugLod)
+                        {
+                            continue;
+                        }
+                        foreach (var pair in perLodPatch.LodLodTransPatchList)
+                        {
+                            Vector3Int lodTrans = pair.Key;
+                            foreach (var patchBlockSameZ in pair.Value)
+                            {
+                                int lodPatchSize = LOD0_PATCH_SIZE * (int)Math.Pow(2, lod);
+                                int patchCount = (patchBlockSameZ.maxX - patchBlockSameZ.minX) / lodPatchSize + 1;
+                                for (int j = 0; j < patchCount; j++)
+                                {
+                                    SinglePatch singlePatch = new SinglePatch();
+                                    singlePatch.lod = (byte)lod;
+                                    singlePatch.lodTrans = lodTrans;
+                                    singlePatch.position = new Vector2(patchBlockSameZ.minX + lodPatchSize * j, patchBlockSameZ.z);
+                                    //test
+                                    if (singlePatch.position.x != -924)
+                                    {
+                                        continue;
+                                    }
+
+                                    if (singlePatch.position.y == -900)
+                                    {
+                                        int iii = 0;
+                                        ++iii;
+                                    }
+                                    //test
+                                    patchList.Add(singlePatch);
+                                }
+                            }
+                        }
+                    }
+                    allPosPatchDict[perLogicPosPatchs.logicPos] = patchList;
+                }
+            }
+
+            List<SinglePatch> debugPatchList = allPosPatchDict[debugPos];
+            string debugStr = "";
+            debugStr +=debugPos.ToString();
+            debugStr += "\n";
+            for (int i = 0; i < debugPatchList.Count; i++)
+            {
+                SinglePatch singlePatch = debugPatchList[i];
+                debugStr += singlePatch.position.ToString();
+                debugStr += "\n";
+            }
+
+            return debugStr;
+        }
         private void GenLodPatchDict()
         {
             allPosPatchDict.Clear();
@@ -251,9 +319,15 @@ namespace PVS
                         List<PatchBlockSameZ> patchBlockSameZList =
                             perLodPatch.LodLodTransPatchList[singlePatch.lodTrans];
                         PatchBlockSameZ lastpatchBlockSameZ = patchBlockSameZList[patchBlockSameZList.Count - 1];
-                        if (patchBlockSameZ.minX - lastpatchBlockSameZ.maxX == LOD0_PATCH_SIZE*Math.Pow(2, perLodPatch.lod))//合并
+                        if (patchBlockSameZ.minX - lastpatchBlockSameZ.maxX == LOD0_PATCH_SIZE*Math.Pow(2, perLodPatch.lod)
+                            && patchBlockSameZ.z == lastpatchBlockSameZ.z)//合并
                         {
                             lastpatchBlockSameZ.maxX = patchBlockSameZ.minX;
+                        }
+                        else if (lastpatchBlockSameZ.minX - patchBlockSameZ.maxX == LOD0_PATCH_SIZE*Math.Pow(2, perLodPatch.lod)
+                                 && patchBlockSameZ.z == lastpatchBlockSameZ.z)
+                        {
+                            lastpatchBlockSameZ.minX = patchBlockSameZ.maxX;
                         }
                         else
                         {
@@ -311,6 +385,8 @@ namespace PVS
         public void GenRuntimeData()
         {
             GenLodPatchDict();
+           /*string debugStr = DebugGenLodPatchDict(new Vector3Int(0, 2, 0), 0);
+           File.WriteAllText("E:/patch.txt", debugStr);*/
         }
         public void GenSerializeData()
         {
