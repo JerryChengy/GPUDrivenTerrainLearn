@@ -79,10 +79,18 @@ namespace PVS
             }
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("读取Patch文件"))
+            if (GUILayout.Button("使用PVS渲染"))
             {
                 PatchAsset patchAsset = DeserializePatchInfo("Assets/GPUDrivenTerrain/Patch/Patch.bytes");
-
+                PatchSystem.Instance.SetPatchData(patchAsset);
+                PatchSystem.Instance.SetTerrain(m_buildVisiblePatchData.staticTerrain);
+                m_buildVisiblePatchData.UseGpuTerrain();
+                m_buildVisiblePatchData.GPUTerrain.UsePVS = true;
+              //  m_buildVisiblePatchData.GPUTerrain.SetCulledPatchData();
+            }
+            if (GUILayout.Button("使用传统渲染"))
+            {
+                m_buildVisiblePatchData.GPUTerrain.UsePVS = false;
             }
             GUILayout.EndHorizontal();
             

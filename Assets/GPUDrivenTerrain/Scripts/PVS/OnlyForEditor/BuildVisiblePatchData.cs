@@ -23,11 +23,17 @@ namespace PVS
         public BakePatch bakePatch;
         
         private static bool isBuilding = false;
-
-
+#if UNITY_EDITOR
+        public GPUTerrain GPUTerrain
+        {
+            get
+            {
+                return dynamicTerrain.GetComponent<GPUTerrain>();
+            }
+            private set { }
+        }
         public  void Build()
         {
-#if UNITY_EDITOR
             if (isBuilding)
             {
                 return;
@@ -47,13 +53,11 @@ namespace PVS
             }
             EditorUtility.ClearProgressBar();
             bakePatch.GenPatchList();
-#endif
-           
+
         }
 
         public void Clear()
         {
-#if UNITY_EDITOR
             isBuilding = false;
             staticTerrain.gameObject.SetActive(true);
             dynamicTerrain.SetActive(false);
@@ -63,7 +67,6 @@ namespace PVS
             }
            
             CameraSetting.Restore(sampleCamera);
-#endif
         }
 
         /// <summary>
@@ -71,11 +74,21 @@ namespace PVS
         /// </summary>
         private void PrepareForBuild()
         {
-#if UNITY_EDITOR
+
             //设置相机到合适的参数，用来做GPU光栅化 Occlusion
             CameraSetting.Init(sampleCamera);
+            UseGpuTerrain();
+            //生成相机采样点
+            bakePatch = new BakePatch();
+            bakePatch.Init(sampleCamera, staticTerrain);
+            CameraSample.Init((int)terrainAsset.worldSize.x, staticTerrain,sampleCamera);
+
+        }
+
+        public void UseGpuTerrain()
+        {
             //将Unity原有地形隐藏
-            //staticTerrain.gameObject.SetActive(false);
+            staticTerrain.gameObject.SetActive(false);
             
             //使用GPUTerrain
             dynamicTerrain.SetActive(true);
@@ -98,13 +111,8 @@ namespace PVS
             dynamicTerrain.transform.position = staticTerrain.transform.position +
                                                 new Vector3(terrainAsset.worldSize.x / 2, 0,
                                                     terrainAsset.worldSize.z / 2);
-            //生成相机采样点
-            bakePatch = new BakePatch();
-            bakePatch.Init(sampleCamera, staticTerrain);
-            CameraSample.Init((int)terrainAsset.worldSize.x, staticTerrain,sampleCamera);
-#endif
         }
-       
+#endif
     }
 }
 

@@ -27,6 +27,10 @@ namespace PVS
 
         private static Camera s_sampleCamera;
 
+        public static int SampleHeightNum
+        {
+            get { return s_sampleHeightNum; }
+        }
 
         public static float SampleInitHeight
         {

@@ -37,7 +37,7 @@ namespace PVS
             }
 
             Vector3 samplePos = m_bakeCamera.transform.position;
-            Vector3Int logicPos = PatchUtility.WorldToLogicPos(m_bakeTerrain, samplePos);
+            Vector3Int logicPos = PatchUtility.WorldToLogicPos(m_bakeTerrain, samplePos, true, Vector2Int.zero);
             if (patchAsset.allPosPatchDict.ContainsKey(logicPos))
             {
                 return;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using PVS;
 using UnityEngine;
 
@@ -45,6 +46,7 @@ namespace GPUDrivenTerrainLearn
         private Material _terrainMaterial;
 
         private bool _isTerrainMaterialDirty = false;
+        
 
         public TerrainBuilder Traverse
         {
@@ -60,8 +62,19 @@ namespace GPUDrivenTerrainLearn
                 _traverse = new TerrainBuilder(terrainAsset);
                 terrainAsset.boundsDebugMaterial.SetBuffer("BoundsList",_traverse.patchBoundsBuffer);
                 this.ApplySettings();
+                if (UsePVS)
+                {
+                   // _traverse.SetCulledPatchData();
+                }
             }
         }
+
+        public bool UsePVS
+        {
+            get;
+            set;
+        }
+        
 
         private Material EnsureTerrainMaterial(){
             if(!_terrainMaterial){
@@ -131,6 +144,13 @@ namespace GPUDrivenTerrainLearn
             }
         }
 
+        public void SetCulledPatchData()
+        {
+            if (_traverse != null)
+            {
+                _traverse.SetCulledPatchData();
+            }
+        }
 
         public void Update()
         {
@@ -138,7 +158,17 @@ namespace GPUDrivenTerrainLearn
             {
                 return;
             }
-             _traverse.Dispatch(gameObject.transform.position);
+
+            if (UsePVS)
+            {
+                _traverse.CopyPatchListToIndirectArgs();
+              
+            }
+            else
+            {
+                _traverse.Dispatch(gameObject.transform.position);
+            }
+             
             var terrainMaterial = this.EnsureTerrainMaterial();
             if(_isTerrainMaterialDirty){
                 this.UpdateTerrainMaterialProeprties();

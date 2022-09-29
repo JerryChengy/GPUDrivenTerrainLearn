@@ -46,7 +46,7 @@ namespace GPUDrivenTerrainLearn
         /// </summary>
         private int _maxNodeBufferSize = 200;
         private int _tempNodeBufferSize = 50;
-
+        
         public TerrainBuilder(TerrainAsset asset){
             _asset = asset;
             _computeShader = asset.computeShader;
@@ -260,19 +260,36 @@ namespace GPUDrivenTerrainLearn
             _computeShader.SetVectorArray(ShaderConstants.CameraFrustumPlanes,_cameraFrustumPlanesV4);
         }
 
-        public void CopyPatchListToIndirectArgs(PatchAsset patchAsset)
+        public int SetCulledPatchData()
         {
-            //clear
+            Camera curRenderCamera = Camera.main;
+            var data = PVS.PatchSystem.Instance.GetPatchDataByCameraPos(curRenderCamera.transform.position);
+            _culledPatchBuffer.SetData(data);
+            return data.Count;
+        }
+
+        public void CopyPatchListToIndirectArgs()
+        {
+            
+           
+
             _commandBuffer.Clear();
             this.ClearBufferCounter();
-            var data = new SinglePatch[patchAsset.allPosPatchList.Count];
+            int population = SetCulledPatchData();
+            LogPatchArgs();
             
+            uint[] args = new uint[5] { 0, 0, 0, 0, 0 };
+
+            args[0] = (uint)TerrainAsset.patchMesh.GetIndexCount(0);
+            args[1] = (uint)population;
+            args[2] = 0;
+            args[3] = 0;
+            _patchIndirectArgs.SetData(args);
             
-            _culledPatchBuffer.SetData(data);
-            _commandBuffer.CopyCounterValue(_culledPatchBuffer,_patchIndirectArgs,4);
-           
+            //_commandBuffer.CopyCounterValue(_culledPatchBuffer,_patchIndirectArgs,0);
             Graphics.ExecuteCommandBuffer(_commandBuffer);
-        }
+            LogPatchArgs();
+        } 
 
         public void Dispatch(Vector3 terrainPosWS){
             var camera = Camera.main;

@@ -55,16 +55,33 @@ namespace PVS
         public List<SinglePatchWrap> allPosPatchList = new List<SinglePatchWrap>();
         [NonSerialized]
         public Dictionary<Vector3Int, List<SinglePatch>> allPosPatchDict = new Dictionary<Vector3Int, List<SinglePatch>>();
-
+        [NonSerialized]
+        public Vector2Int mapMinMaxPos;
         public void GenPatchDict()
         {
+            mapMinMaxPos = Vector2Int.zero;
+            int iIndex = 0;
             allPosPatchDict.Clear();
             foreach (var singlePatchWrap in allPosPatchList)
             {
                 if (!allPosPatchDict.ContainsKey(singlePatchWrap.logicPos))
                 {
+                    //地图固定为POT
+                    if (iIndex == 0)
+                    {
+                        mapMinMaxPos.x = singlePatchWrap.logicPos.x;
+                        mapMinMaxPos.y = singlePatchWrap.logicPos.x;
+                    }
+                    else
+                    {
+                        mapMinMaxPos.x = Math.Min(mapMinMaxPos.x, singlePatchWrap.logicPos.x);
+                        mapMinMaxPos.y = Math.Max(mapMinMaxPos.y, singlePatchWrap.logicPos.x);
+                    }
+                    
                     allPosPatchDict[singlePatchWrap.logicPos] = singlePatchWrap.PatchList;
                 }
+
+                iIndex++;
             }
         }
         public void GenPatchList()
