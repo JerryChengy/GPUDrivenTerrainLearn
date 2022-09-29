@@ -24,11 +24,6 @@ namespace PVS
             m_bakeTerrain = terrain;
             patchAsset = new PatchAsset();
         }
-        public void GenPatchList()
-        {
-            patchAsset.GenPatchList();
-        }
-
         public void ReadFromPatchBuffer(ComputeBuffer buffer)
         {
             if (m_bakeCamera == null)

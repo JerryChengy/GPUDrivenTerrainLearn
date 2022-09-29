@@ -25,9 +25,30 @@ namespace PVS
             MemoryStream stream = new MemoryStream(data);
             PatchAsset patchAsset = new PatchAsset();
             patchAsset.Serialize(stream, false);
-            patchAsset.GenPatchDict();
+            patchAsset.GenRuntimeData();
             Debug.Log("DeserializePatchInfo end");
             return patchAsset;
+        }
+        private PatchAsset DeserializePatchInfoNew(string filePath)
+        {
+            Debug.Log("DeserializePatchInfoNew begin");
+            byte[] data = File.ReadAllBytes(filePath);
+            MemoryStream stream = new MemoryStream(data);
+            PatchAsset patchAsset = new PatchAsset();
+            patchAsset.SerializeNew(stream, false);
+            patchAsset.GenRuntimeData();
+            Debug.Log("DeserializePatchInfoNew end");
+            return patchAsset;
+        }
+        private void SerializePatchInfoNew(PatchAsset patchAsset, string savePath)
+        {
+            MemoryStream stream = new MemoryStream();
+            patchAsset.SerializeNew(stream, true);
+            if (stream.Length > 0)
+            {
+                File.WriteAllBytes(savePath, stream.ToArray());
+            }
+            AssetDatabase.Refresh();
         }
         private void SerializePatchInfo(PatchAsset patchAsset, string savePath)
         {
@@ -52,7 +73,9 @@ namespace PVS
                 {
                     AssetDatabase.CreateFolder(parentDir, patchDir);
                 }
-                SerializePatchInfo(m_buildVisiblePatchData.bakePatch.patchAsset, Path.Combine(wholeDir, "Patch.bytes"));
+                m_buildVisiblePatchData.bakePatch.patchAsset.GenSerializeData();
+              //  SerializePatchInfo(m_buildVisiblePatchData.bakePatch.patchAsset, Path.Combine(wholeDir, "Patch.bytes"));
+                SerializePatchInfoNew(m_buildVisiblePatchData.bakePatch.patchAsset, Path.Combine(wholeDir, "PatchNew.bytes"));
                 
                 //Test Deserialize
                 
@@ -81,7 +104,7 @@ namespace PVS
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("使用PVS渲染"))
             {
-                PatchAsset patchAsset = DeserializePatchInfo("Assets/GPUDrivenTerrain/Patch/Patch.bytes");
+                PatchAsset patchAsset = DeserializePatchInfoNew("Assets/GPUDrivenTerrain/Patch/PatchNew.bytes");
                 PatchSystem.Instance.SetPatchData(patchAsset);
                 PatchSystem.Instance.SetTerrain(m_buildVisiblePatchData.staticTerrain);
                 m_buildVisiblePatchData.UseGpuTerrain();
@@ -92,6 +115,11 @@ namespace PVS
             {
                 m_buildVisiblePatchData.GPUTerrain.UsePVS = false;
             }
+            if (GUILayout.Button("读取patch new文件"))
+            {
+                PatchAsset patchAsset = DeserializePatchInfoNew("Assets/GPUDrivenTerrain/Patch/PatchNew.bytes");
+            }
+            
             GUILayout.EndHorizontal();
             
         }

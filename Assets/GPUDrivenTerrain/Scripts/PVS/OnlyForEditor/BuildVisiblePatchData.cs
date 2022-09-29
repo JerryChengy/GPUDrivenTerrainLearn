@@ -52,8 +52,6 @@ namespace PVS
                 EditorUtility.DisplayProgressBar("Camera sample patch", CameraSample.ProgressInfo("sampling "), CameraSample.Progress());
             }
             EditorUtility.ClearProgressBar();
-            bakePatch.GenPatchList();
-
         }
 
         public void Clear()

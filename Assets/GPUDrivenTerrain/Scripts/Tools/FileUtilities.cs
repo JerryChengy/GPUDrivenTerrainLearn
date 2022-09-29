@@ -39,7 +39,7 @@ public static class FileUtils
     public static void WriteUShort(Stream stream, ushort v)
     {
         byte[] sBuff = BitConverter.GetBytes(v);
-        stream.Write(sBuff, 0, sBuff.Length);
+        stream.Write(sBuff, 0, sizeof(ushort));
     }
     public static ushort ReadUShort(Stream stream)
     {
@@ -88,11 +88,11 @@ public static class FileUtils
     {
         Vector3Int v = Vector3Int.zero;
         byte[] sBuff = new byte[sizeof(int)];
-        stream.Read(sBuff, 0, sizeof(float));
+        stream.Read(sBuff, 0, sizeof(int));
         v.x = BitConverter.ToInt32(sBuff, 0);
-        stream.Read(sBuff, 0, sizeof(float));
+        stream.Read(sBuff, 0, sizeof(int));
         v.y = BitConverter.ToInt32(sBuff, 0);
-        stream.Read(sBuff, 0, sizeof(float));
+        stream.Read(sBuff, 0, sizeof(int));
         v.z = BitConverter.ToInt32(sBuff, 0);
         return v;
     }
@@ -145,6 +145,29 @@ public static class FileUtils
         short y = (short)Mathf.Floor(v.y);
         sBuff = BitConverter.GetBytes(y);
         stream.Write(sBuff, 0, sBuff.Length);
+    }
+    public static Vector3Int ReadShort3(Stream stream)
+    {
+        short x = 0;
+        byte[] sBuff = new byte[sizeof(short)];
+        stream.Read(sBuff, 0, sizeof(short));
+        x = BitConverter.ToInt16(sBuff, 0);
+        short y = 0;
+        stream.Read(sBuff, 0, sizeof(short));
+        y = BitConverter.ToInt16(sBuff, 0);
+        short z = 0;
+        stream.Read(sBuff, 0, sizeof(short));
+        z = BitConverter.ToInt16(sBuff, 0);
+        return new Vector3Int(x, y, z);
+    }
+    public static void WriteShort3(Stream stream, Vector3Int v)
+    {
+        byte[] sBuff = BitConverter.GetBytes(v.x);
+        stream.Write(sBuff, 0, sizeof(short));
+        sBuff = BitConverter.GetBytes(v.y);
+        stream.Write(sBuff, 0, sizeof(short));
+        sBuff = BitConverter.GetBytes(v.z);
+        stream.Write(sBuff, 0, sizeof(short));
     }
     public static void WriteVector2(Stream stream, Vector2 v)
     {
