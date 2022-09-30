@@ -66,6 +66,7 @@ namespace GPUDrivenTerrainLearn
                 {
                    // _traverse.SetCulledPatchData();
                 }
+                TerrainHeight.LoadHeightBytes(terrainAsset.TerrainHeightBytes.bytes);
             }
         }
 

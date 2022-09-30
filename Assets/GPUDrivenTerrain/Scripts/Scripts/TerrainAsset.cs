@@ -33,11 +33,17 @@ namespace GPUDrivenTerrainLearn{
         [SerializeField]
         private ComputeShader _terrainCompute;
 
+        [SerializeField] private TextAsset _terrainHeightBytes;
+
         private RenderTexture _quadTreeMap;
         private RenderTexture _minMaxHeightMap;
 
         private Material _boundsDebugMaterial;
 
+        public TextAsset TerrainHeightBytes
+        {
+            get { return _terrainHeightBytes; }
+        }
         public int MaxLodNodeCount
         {
             get

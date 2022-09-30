@@ -34,3 +34,4 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 32957d4afa2834683ac4a9595c245981, type: 3}
   - {fileID: 2800000, guid: 33282c04c745b4227b08d306eb84303a, type: 3}
   _terrainCompute: {fileID: 7200000, guid: 501b8a349b19a4bc6b6100655a7fb53b, type: 3}
+  _terrainHeightBytes: {fileID: 4900000, guid: 50b9ed09139a9a54cab5ab5931d3d4fe, type: 3}

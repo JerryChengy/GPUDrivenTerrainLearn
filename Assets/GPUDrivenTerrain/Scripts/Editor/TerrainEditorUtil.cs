@@ -35,8 +35,6 @@ namespace GPUDrivenTerrainLearn
             AssetDatabase.Refresh();
         }
 
-
-
         [MenuItem("Assets/Create/GPUDrivenTerrainLearn/GenerateNormalMapFromHeightMap")]
         public static void GenerateNormalMapFromHeightMap(){
             if(Selection.activeObject is Texture2D  heightMap){

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Cinemachine;
+using GPUDrivenTerrainLearn;
 using TMPro;
 
 public class TestCtrl : MonoBehaviour
@@ -144,10 +145,10 @@ public class TestCtrl : MonoBehaviour
             }
         }
         var h = pos.y;
-        /*if (MTHeightMap.GetHeightInterpolated(pos, ref h))
+        if (TerrainHeight.GetHeightInterpolated(pos, ref h))
         {
             return h;
-        }*/
+        }
         return pos.y;
     }
 
