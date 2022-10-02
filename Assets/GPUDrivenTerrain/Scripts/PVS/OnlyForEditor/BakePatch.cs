@@ -16,12 +16,9 @@ namespace PVS
     {
         public PatchAsset patchAsset;
         private Camera m_bakeCamera;
-        private Terrain m_bakeTerrain;
-
-        public void Init(Camera camera, Terrain terrain)
+        public void Init(Camera camera)
         {
             m_bakeCamera = camera;
-            m_bakeTerrain = terrain;
             patchAsset = new PatchAsset();
         }
         public void ReadFromPatchBuffer(ComputeBuffer buffer)
@@ -32,7 +29,7 @@ namespace PVS
             }
 
             Vector3 samplePos = m_bakeCamera.transform.position;
-            Vector3Int logicPos = PatchUtility.WorldToLogicPos(m_bakeTerrain, samplePos, true, Vector2Int.zero);
+            Vector3Int logicPos = PatchUtility.WorldToLogicPos(samplePos, true, Vector2Int.zero);
             if (patchAsset.allPosPatchDict.ContainsKey(logicPos))
             {
                 return;

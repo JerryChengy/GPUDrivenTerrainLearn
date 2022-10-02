@@ -175,7 +175,6 @@ namespace PVS
             {
                 PatchAsset patchAsset = DeserializePatchInfoNew("Assets/GPUDrivenTerrain/Patch/PatchNew.bytes");
                 PatchSystem.Instance.SetPatchData(patchAsset);
-                PatchSystem.Instance.SetTerrain(m_buildVisiblePatchData.staticTerrain);
                 m_buildVisiblePatchData.UseGpuTerrain();
                 m_buildVisiblePatchData.GPUTerrain.UsePVS = true;
               //  m_buildVisiblePatchData.GPUTerrain.SetCulledPatchData();

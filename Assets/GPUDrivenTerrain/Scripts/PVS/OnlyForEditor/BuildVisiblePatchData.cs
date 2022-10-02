@@ -78,7 +78,7 @@ namespace PVS
             UseGpuTerrain();
             //生成相机采样点
             bakePatch = new BakePatch();
-            bakePatch.Init(sampleCamera, staticTerrain);
+            bakePatch.Init(sampleCamera);
             CameraSample.Init((int)terrainAsset.worldSize.x, staticTerrain,sampleCamera);
 
         }

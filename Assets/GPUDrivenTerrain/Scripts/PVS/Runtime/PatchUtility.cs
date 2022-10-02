@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GPUDrivenTerrainLearn;
 using PVS;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public static class PatchUtility
     /// </summary>
     /// <param name="worldPos"></param>
     /// <returns></returns>
-    public static Vector3Int WorldToLogicPos(Terrain terrain, Vector3 worldPos, bool bBake, Vector2Int mapMinMaxPos)
+    public static Vector3Int WorldToLogicPos(Vector3 worldPos, bool bBake, Vector2Int mapMinMaxPos)
     {
         Vector3Int logicPos = new Vector3Int();
         int sampleTileSize = CameraSample.SampleTileSize;
@@ -19,7 +20,9 @@ public static class PatchUtility
         logicPos.z = ((int)worldPos.z) / sampleTileSize;
         Vector3 pos = new Vector3(logicPos.x * sampleTileSize + sampleTileSize / 2, 0,
             logicPos.z * sampleTileSize + sampleTileSize / 2);
-        float terrainHeight = terrain.SampleHeight(pos);
+
+        float terrainHeight = 0;
+        TerrainHeight.GetHeightInterpolated(worldPos, ref terrainHeight);
         float initHeight = terrainHeight + CameraSample.SampleInitHeight;
         logicPos.y = Mathf.RoundToInt((worldPos.y - initHeight) / CameraSample.SampleHeightStep);
         if (!bBake)
