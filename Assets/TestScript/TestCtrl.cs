@@ -109,6 +109,16 @@ public class TestCtrl : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKey(KeyCode.R))
+        {
+            Vector3 originPos = Camera.main.transform.position;
+            Vector3 dir = Camera.main.transform.forward;
+            RaycastHit rh;
+            if (Physics.Raycast(originPos, dir, out rh))
+            {
+                Debug.DrawLine(originPos, originPos + dir * rh.distance, Color.green, 1000);
+            }
+        }
         if (frameText != null)
         {
             if (Time.time - preFrameSampleTime > 1)
